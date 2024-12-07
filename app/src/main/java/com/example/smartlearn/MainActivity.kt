@@ -1,4 +1,5 @@
 package com.example.smartlearn
+
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -19,9 +20,14 @@ import com.example.smartlearn.View.AdminDashboard
 import com.example.smartlearn.View.RegistrationPage
 
 import com.example.smartlearn.View.StudentDashboard
+import com.example.smartlearn.View.StudentList
+import com.example.smartlearn.View.TutorDashboard
+import com.example.smartlearn.View.TutorList
 import com.example.smartlearn.View.TutorRegistrationPage
+import com.example.smartlearn.View.UploadPaperPage
 import com.example.smartlearn.ViewModel.StudentRegistrationViewModel
 import com.example.smartlearn.ViewModel.StudentDashboardViewModel
+import com.example.smartlearn.ViewModel.StudentListViewModel
 import com.example.smartlearn.ViewModel.TutorRegistrationViewModel
 import com.google.firebase.FirebaseApp
 
@@ -37,31 +43,59 @@ class MainActivity : ComponentActivity() {
             SmartLearnTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
 
-                    NavHost(navController = navController, startDestination = "login") {
-                        composable(route = "login") {
-                            LoginPage(viewModel = LoginViewModel(),modifier = Modifier.padding(innerPadding), navController = navController)
+                    NavHost(navController = navController, startDestination = "Login") {
+                        composable(route = "Login") {
+                            LoginPage(
+                                modifier = Modifier.padding(innerPadding),
+                                navController = navController
+                            )
                         }
-                        composable(route = "registration") {
-                            RegistrationPage(viewModel = StudentRegistrationViewModel(),modifier = Modifier.padding(innerPadding), navController = navController)
+                        composable(route = "Registration") {
+                            RegistrationPage(
+                                modifier = Modifier.padding(innerPadding),
+                                navController = navController
+                            )
                         }
-                        composable(route = "StudentDashboard"){
+                        composable(route = "StudentDashboard") {
                             StudentDashboard(
                                 modifier = Modifier.padding(innerPadding),
-                                viewModel = StudentDashboardViewModel(),
                                 navController = navController,
                             )
                         }
-                        composable(route = "AdminDashboard"){
+                        composable(route = "AdminDashboard") {
                             AdminDashboard(
                                 modifier = Modifier.padding(innerPadding),
                                 navController = navController,
                             )
                         }
-                        composable(route = "TutorRegistration"){
+                        composable(route = "TutorRegistration") {
                             TutorRegistrationPage(
                                 modifier = Modifier.padding(innerPadding),
                                 navController = navController,
-                                viewModel = TutorRegistrationViewModel()
+                            )
+                        }
+                        composable(route = "StudentList") {
+                            StudentList(
+                                modifier = Modifier.padding(innerPadding),
+                                navController = navController,
+                            )
+                        }
+                        composable(route = "TutorList") {
+                            TutorList(
+                                modifier = Modifier.padding(innerPadding),
+                                navController = navController,
+                            )
+                        }
+                        composable(route = "TutorDashboard") {
+                            TutorDashboard(
+                                modifier = Modifier.padding(innerPadding),
+                                navController = navController,
+                            )
+                        }
+                        composable(route = "UploadPaper") {
+                            UploadPaperPage(
+                                modifier = Modifier.padding(innerPadding),
+                                navController = navController,
                             )
                         }
 

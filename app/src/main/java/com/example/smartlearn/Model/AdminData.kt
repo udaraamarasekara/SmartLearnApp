@@ -1,7 +1,8 @@
 package com.example.smartlearn.Model
 
 
-data class StudentData (
+data class StudentAndTutorData (
+    val id: Int,
     val name: String,
     val email: String
 )
@@ -21,7 +22,7 @@ data class Links(
 }
 
 
-data class StudentResponse(
-    val data: List<StudentData>,
+data class StudentAndTutorResponse(
+    val data: List<StudentAndTutorData>,
     val links: Links,
 )

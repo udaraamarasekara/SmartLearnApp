@@ -3,8 +3,8 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     id("com.google.gms.google-services")
-    id ("kotlin-kapt")
-    id ("dagger.hilt.android.plugin")
+//    id ("kotlin-kapt")
+//    id ("dagger.hilt.android.plugin")
 
 }
 
@@ -55,11 +55,11 @@ dependencies {
     implementation ("com.google.firebase:firebase-messaging:24.1.0")
 
 
-    implementation ("com.google.dagger:hilt-android:2.48")
-    kapt ("com.google.dagger:hilt-compiler:2.48")
-
-    // Hilt integration with Compose
-    implementation ("androidx.hilt:hilt-navigation-compose:1.0.0")
+//    implementation ("com.google.dagger:hilt-android:2.48")
+//    kapt ("com.google.dagger:hilt-compiler:2.48")
+//
+//    // Hilt integration with Compose
+//    implementation ("androidx.hilt:hilt-navigation-compose:1.0.0")
 
     // Compose dependencies
     implementation ("androidx.compose.ui:ui:1.5.3")

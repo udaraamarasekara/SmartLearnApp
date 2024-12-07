@@ -24,10 +24,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.smartlearn.Model.RegistrationData
+import com.example.smartlearn.ViewModel.StudentListViewModel
 import com.example.smartlearn.ViewModel.TutorRegistrationViewModel
 
 @Composable
-fun TutorRegistrationPage(modifier: Modifier=Modifier, viewModel: TutorRegistrationViewModel, navController: NavController)
+fun TutorRegistrationPage(modifier: Modifier=Modifier, navController: NavController)
 {
     var email = remember {
         mutableStateOf("")
@@ -56,7 +57,13 @@ fun TutorRegistrationPage(modifier: Modifier=Modifier, viewModel: TutorRegistrat
     var passwordConfirmationLandscape =remember {
         mutableStateOf("")
     }
+    val viewModel: TutorRegistrationViewModel = remember { TutorRegistrationViewModel()}
+
+
     var error = viewModel.result
+
+
+
 
     val configuration = LocalConfiguration.current
     val isPortrait = configuration.orientation == android.content.res.Configuration.ORIENTATION_PORTRAIT

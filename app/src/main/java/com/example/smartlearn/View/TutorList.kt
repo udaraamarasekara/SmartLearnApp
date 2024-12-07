@@ -9,13 +9,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import com.example.smartlearn.ViewModel.StudentListViewModel
-import androidx.compose.foundation.lazy.items // or auto-fix imports
+import com.example.smartlearn.ViewModel.TutorListViewModel
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.foundation.lazy.items // or auto-fix imports
 
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
@@ -30,25 +30,21 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filter
 
 @Composable
-fun StudentList(
+fun TutorList(
     modifier: Modifier = Modifier,
     navController: NavController
 ) {
-    val viewModel: StudentListViewModel = remember { StudentListViewModel()}
+    val viewModel: TutorListViewModel = remember { TutorListViewModel()}
     // Collect state from ViewModel
     val result = viewModel.result.collectAsState()
-    val students = result.value.data // Ensure non-nullable list
+    val tutors = result.value.data // Ensure non-nullable list
     val listState = rememberLazyListState() // LazyColumn state
     var isNearTop = false
     var isNearBottom = false
-
-
-
-//    var deletedStudent = remember { 0 }
     // Pagination logic
-    fun deleteStudent(id:Int)
+    fun deleteTutor(id:Int)
     {
-        viewModel.deleteStudent(id)
+        viewModel.deleteTutor(id)
     }
 
     val shouldLoadMore = remember {
@@ -59,12 +55,12 @@ fun StudentList(
             val totalItemsCount = listState.layoutInfo.totalItemsCount
 
             // Check for near-top and near-bottom
-            if(totalItemsCount!=0  ) {
-                isNearTop = firstVisibleItemIndex <= 2 // Adjust the threshold as needed
+            if(totalItemsCount!=0 && result.value.links.next.toString()!="null") {
+                isNearTop = firstVisibleItemIndex <= 2 && result.value.links.next.toString()!="2" // Adjust the threshold as needed
                 isNearBottom =
                     lastVisibleItemIndex >= totalItemsCount - 1
             }
-                isNearTop || isNearBottom
+            isNearTop || isNearBottom
         }
     }
 
@@ -73,17 +69,17 @@ fun StudentList(
             .distinctUntilChanged() // Trigger only on changes
             .filter {it}
             .collect {
-                if (isNearTop && result.value.links.prev.toString()!="null") {
+                if (isNearTop) {
                     Log.d("StudentList", "Near top")
                     // Load previous data if available
-                    viewModel.getStudents(result.value.links.prev.toString())
+                    viewModel.getTutors(result.value.links.prev.toString())
 
                 }
-                else if (isNearBottom && result.value.links.next.toString()!="null") {
+                else if (isNearBottom) {
                     // Load next data if available
                     Log.d("StudentList", "Near bottom")
 
-                    viewModel.getStudents(result.value.links.next.toString())
+                    viewModel.getTutors(result.value.links.next.toString())
                 }
             }
     }
@@ -102,15 +98,15 @@ fun StudentList(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Student List",
+            text = "Tutor List",
             modifier = Modifier.padding(bottom = 30.dp),
             fontSize = 30.sp,
             fontWeight = FontWeight.Bold,
             color = Color.Gray
         )
         LazyColumn(state = listState) {
-            items(students) { student ->
-                StudentCard(student, onDelete ={id->deleteStudent(id)})
+            items(tutors) { tutor ->
+                TutorCard(tutor, onDelete ={id->deleteTutor(id)})
             }
         }
 

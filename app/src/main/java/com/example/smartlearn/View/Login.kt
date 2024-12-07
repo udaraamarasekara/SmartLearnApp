@@ -24,9 +24,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.smartlearn.Model.LoginData
+import com.example.smartlearn.ViewModel.StudentListViewModel
 
 @Composable
-fun LoginPage(modifier: Modifier=Modifier,viewModel: LoginViewModel,navController: NavController)
+fun LoginPage(modifier: Modifier=Modifier,navController: NavController)
 {
     var email = remember {
         mutableStateOf("")
@@ -34,7 +35,11 @@ fun LoginPage(modifier: Modifier=Modifier,viewModel: LoginViewModel,navControlle
     var password = remember {
         mutableStateOf("")
     }
+    val viewModel: LoginViewModel = remember { LoginViewModel()}
+
     var error = viewModel.result
+
+
 
     val configuration = LocalConfiguration.current
     val isPortrait = configuration.orientation == android.content.res.Configuration.ORIENTATION_PORTRAIT

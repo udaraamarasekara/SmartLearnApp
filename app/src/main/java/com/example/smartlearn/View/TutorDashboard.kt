@@ -20,7 +20,7 @@ import androidx.navigation.NavController
 import com.example.smartlearn.ui.theme.lightBlue
 
 @Composable
-fun AdminDashboard(modifier: Modifier=Modifier,navController: NavController) {
+fun TutorDashboard(modifier: Modifier=Modifier,navController: NavController) {
 
 
     Column(
@@ -31,32 +31,24 @@ fun AdminDashboard(modifier: Modifier=Modifier,navController: NavController) {
 
 
         Button(onClick = {
-            navController.navigate("TutorList")
+            navController.navigate("Profile")
 
         },
             modifier = Modifier.padding(0.dp, 5.dp, 0.dp, 5.dp).width(300.dp),
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color.Red, // Background color of the button
                 contentColor = Color.White  // Color of the text inside the button
-            )) { Text(text = "Tutor List") }
+            )) { Text(text = "Profile") }
 
         Button(onClick = {
-            navController.navigate("TutorRegistration")
+            navController.navigate("UploadPaper")
         },
             modifier = Modifier.padding(0.dp, 5.dp, 0.dp, 5.dp).width(300.dp),
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color.Green, // Background color of the button
                 contentColor = Color.White  // Color of the text inside the button
-            )) { Text(text = "Add New Tutor") }
-        Button(onClick = {
-            navController.navigate("StudentList")
-        },
-            modifier = Modifier.padding(
-                0.dp,
-                5.dp,
-                0.dp,
-                5.dp
-            ).width(300.dp)) { Text(text = "Student List") }
+            )) { Text(text = "Upload Paper") }
+
 
     }
 }

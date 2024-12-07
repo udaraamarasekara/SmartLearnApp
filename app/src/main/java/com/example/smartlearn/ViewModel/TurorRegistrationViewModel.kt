@@ -4,10 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.example.smartlearn.Model.AdminRepository
-import com.example.smartlearn.Model.Fcm
 import com.example.smartlearn.Model.RegistrationData
-import com.example.smartlearn.Model.StudentRepository
-import com.example.smartlearn.getFirebaseToken
+
 import kotlinx.coroutines.launch
 
 class TutorRegistrationViewModel: ViewModel() {

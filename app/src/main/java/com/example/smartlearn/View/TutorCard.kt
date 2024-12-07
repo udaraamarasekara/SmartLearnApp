@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import com.example.smartlearn.Model.StudentAndTutorData
 
 @Composable
-fun StudentCard(student: StudentAndTutorData, onDelete: (id: Int) -> Unit) {
+fun TutorCard(tutor: StudentAndTutorData, onDelete: (id: Int) -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -31,12 +31,12 @@ fun StudentCard(student: StudentAndTutorData, onDelete: (id: Int) -> Unit) {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Column {
-                Text(text = "Name: ${student.name}", style = MaterialTheme.typography.labelLarge)
-                Text(text = "Email: ${student.email}", style = MaterialTheme.typography.bodyMedium)
+                Text(text = "Name: ${tutor.name}", style = MaterialTheme.typography.labelLarge)
+                Text(text = "Email: ${tutor.email}", style = MaterialTheme.typography.bodyMedium)
                 Row {
                     Button(
                         onClick = {
-                            onDelete(student.id)
+                            onDelete(tutor.id)
                         },
                         modifier = Modifier.padding(
                             5.dp,
@@ -44,7 +44,7 @@ fun StudentCard(student: StudentAndTutorData, onDelete: (id: Int) -> Unit) {
                             0.dp,
                             0.dp
                         )
-                    ) { Text(text = "Suspend Student") }
+                    ) { Text(text = "Suspend Tutor") }
                 }
             }
         }

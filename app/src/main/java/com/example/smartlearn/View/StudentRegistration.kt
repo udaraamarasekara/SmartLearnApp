@@ -24,11 +24,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.smartlearn.Model.RegistrationData
+import com.example.smartlearn.ViewModel.LoginViewModel
 import com.example.smartlearn.ViewModel.StudentRegistrationViewModel
 
 @Composable
-fun RegistrationPage(modifier: Modifier=Modifier, viewModel: StudentRegistrationViewModel, navController: NavController)
+fun RegistrationPage(modifier: Modifier=Modifier, navController: NavController)
 {
+    val viewModel: StudentRegistrationViewModel = remember { StudentRegistrationViewModel()}
+
+
     var email = remember {
         mutableStateOf("")
     }

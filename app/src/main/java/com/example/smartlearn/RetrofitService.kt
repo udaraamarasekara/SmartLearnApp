@@ -2,16 +2,21 @@ package com.example.smartlearn
 
 import com.example.smartlearn.Model.LoginData
 import com.example.smartlearn.Model.RegistrationData
-import com.example.smartlearn.Model.StudentResponse
+import com.example.smartlearn.Model.StudentAndTutorResponse
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.POST
 import com.example.smartlearn.Model.UserData
+import okhttp3.MultipartBody
 import retrofit2.http.Body
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
-import okhttp3.Request
+import okhttp3.RequestBody
+import okhttp3.ResponseBody
+import retrofit2.http.DELETE
 import retrofit2.http.GET
+import retrofit2.http.Multipart
+import retrofit2.http.Part
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface RetrofitService {
@@ -22,14 +27,28 @@ interface RetrofitService {
     @POST("register")
     suspend fun register(@Body registrationData: RegistrationData): UserData
 
-    @GET("getStudents")
-    suspend fun getStudents(@Query("page") page: String): StudentResponse
+    @GET("students")
+    suspend fun getStudents(@Query("page") page: String): StudentAndTutorResponse
 
-    @GET("getStudentPapers")
+    @GET("tutors")
+    suspend fun getTutors(@Query("page") page: String): StudentAndTutorResponse
+
+    @GET("studentPapers")
     suspend fun getStudentPapers(): Int
 
     @POST("registerTutor")
-    suspend fun registerTutor(@Body registrationData: RegistrationData): UserData
+    suspend fun registerTutor(@Body registrationData: RegistrationData): Int
+
+    @DELETE("member/{id}")
+    suspend fun deleteMember(@Path("id") id: String): Boolean
+
+    @Multipart
+    @POST("paper")
+    suspend fun uploadPaper(
+        @Part file: MultipartBody.Part,
+        @Part("name") name: RequestBody
+
+    ): ResponseBody
 
 
     companion object {

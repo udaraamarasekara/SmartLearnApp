@@ -19,10 +19,14 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.smartlearn.Model.UserSession.userData
 import com.example.smartlearn.ViewModel.StudentDashboardViewModel
+import com.example.smartlearn.ViewModel.TutorRegistrationViewModel
 import com.example.smartlearn.ui.theme.lightBlue
 
 @Composable
-fun StudentDashboard(modifier: Modifier=Modifier,viewModel: StudentDashboardViewModel,navController: NavController) {
+fun StudentDashboard(modifier: Modifier=Modifier,navController: NavController) {
+
+    val viewModel: StudentDashboardViewModel = remember { StudentDashboardViewModel()}
+
     var notificationCount = remember {
         mutableStateOf(viewModel.result)
     }
