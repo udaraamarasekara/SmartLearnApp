@@ -12,6 +12,7 @@ import androidx.compose.runtime.collectAsState
 import com.example.smartlearn.ViewModel.StudentListViewModel
 import androidx.compose.foundation.lazy.items // or auto-fix imports
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
@@ -51,6 +52,11 @@ fun StudentList(
         viewModel.deleteStudent(id)
     }
 
+    fun approveStudent(id:Int)
+    {
+        viewModel.approveStudent(id)
+
+    }
     val shouldLoadMore = remember {
         derivedStateOf {
             val firstVisibleItemIndex =
@@ -110,9 +116,23 @@ fun StudentList(
         )
         LazyColumn(state = listState) {
             items(students) { student ->
-                StudentCard(student, onDelete ={id->deleteStudent(id)})
-            }
-        }
+                StudentCard(
+                    student, onDelete = { id ->
+                        deleteStudent(id)
+                    },
+                    onApprove = { id -> approveStudent(id) })}
 
     }
+        Button(onClick = {
+            navController.navigate("AdminDashboard")
+        },
+            modifier = Modifier.padding(
+                5.dp,
+                10.dp,
+                0.dp,
+                0.dp
+            )) { Text(text = "Back") }
+
+    }
+
 }

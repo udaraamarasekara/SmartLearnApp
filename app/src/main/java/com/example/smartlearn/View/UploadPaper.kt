@@ -57,6 +57,14 @@ fun UploadPaperPage(modifier: Modifier = Modifier, navController: NavController)
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
+        Text(
+            text = "Upload Paper",
+            modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 20.dp),
+            fontSize = 30.sp,
+            fontWeight = FontWeight.Bold,
+            color = Color.Gray
+        )
+
         Row {
             TextField(
                 value = name.value, onValueChange = { text ->
@@ -89,13 +97,8 @@ fun UploadPaperPage(modifier: Modifier = Modifier, navController: NavController)
 
         }
 
-        Text(
-            text = "Upload Paper",
-            modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 20.dp),
-            fontSize = 30.sp,
-            fontWeight = FontWeight.Bold,
-            color = Color.Gray
-        )
+
+
         Button(onClick = { filePickerLauncher.launch("*/*") }) {
             Text("Select File")
         }
@@ -125,5 +128,14 @@ fun UploadPaperPage(modifier: Modifier = Modifier, navController: NavController)
                 Text("Status: ${it.value}")
             }
         }
+        Button(onClick = {
+            navController.navigate("TutorDashboard")
+        },
+            modifier = Modifier.padding(
+                5.dp,
+                10.dp,
+                0.dp,
+                0.dp
+            )) { Text(text = "Back") }
     }
 }

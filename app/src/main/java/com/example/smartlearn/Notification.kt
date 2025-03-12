@@ -11,6 +11,12 @@ import com.google.firebase.messaging.RemoteMessage
 
 class Notification : FirebaseMessagingService() {
 
+
+    override fun onNewToken(token: String) {
+        super.onNewToken(token)
+        // Handle token refresh here
+    }
+
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         // Handle FCM messages here
         remoteMessage.notification?.let {

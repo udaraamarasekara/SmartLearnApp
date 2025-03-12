@@ -10,18 +10,24 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.smartlearn.Model.UserRepository
 
 import com.example.smartlearn.ui.theme.lightBlue
+import kotlinx.coroutines.launch
 
 @Composable
 fun AdminDashboard(modifier: Modifier=Modifier,navController: NavController) {
 
+    val coroutineScope = rememberCoroutineScope()
 
     Column(
         modifier = modifier.fillMaxSize().background(color = lightBlue),
@@ -29,7 +35,15 @@ fun AdminDashboard(modifier: Modifier=Modifier,navController: NavController) {
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
 
-
+        Text(
+            text = "Admin Dashboard",
+            modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 15.dp),
+            fontSize = 30.sp,
+            textAlign = androidx.compose.ui.text.style.TextAlign.Center,
+            lineHeight = 40.sp,
+            fontWeight = FontWeight.Bold,
+            color = Color.Gray
+        )
         Button(onClick = {
             navController.navigate("TutorList")
 
@@ -38,7 +52,7 @@ fun AdminDashboard(modifier: Modifier=Modifier,navController: NavController) {
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color.Red, // Background color of the button
                 contentColor = Color.White  // Color of the text inside the button
-            )) { Text(text = "Tutor List") }
+            )) { Text(text = "Lecturer List") }
 
         Button(onClick = {
             navController.navigate("TutorRegistration")
@@ -58,5 +72,20 @@ fun AdminDashboard(modifier: Modifier=Modifier,navController: NavController) {
                 5.dp
             ).width(300.dp)) { Text(text = "Student List") }
 
-    }
-}
+
+    Button(onClick = {
+
+        coroutineScope.launch() {
+            val userRepository= UserRepository()
+            userRepository.logout()
+        }
+        navController.navigate("WelcomePage")
+
+    },
+        modifier = Modifier.padding(0.dp, 5.dp, 0.dp, 5.dp).width(300.dp),
+        colors = ButtonDefaults.buttonColors(
+            containerColor = Color.Yellow, // Background color of the button
+            contentColor = Color.Red  // Color of the text inside the button
+        )) { Text(text = "Logout") }
+
+}  }

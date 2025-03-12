@@ -1,5 +1,3 @@
-package com.example.smartlearn.View
-
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -26,16 +24,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.smartlearn.Model.RegistrationAndProfileData
-
-import com.example.smartlearn.ViewModel.StudentRegistrationViewModel
+import com.example.smartlearn.ViewModel.TutorProfileViewModel
+import com.example.smartlearn.ViewModel.TutorRegistrationViewModel
 import kotlinx.coroutines.delay
 
 @Composable
-fun RegistrationPage(modifier: Modifier=Modifier, navController: NavController)
+fun TutorProfile(modifier: Modifier=Modifier, navController: NavController)
 {
-    val viewModel: StudentRegistrationViewModel = remember { StudentRegistrationViewModel()}
-
-
     var email = remember {
         mutableStateOf("")
     }
@@ -63,7 +58,13 @@ fun RegistrationPage(modifier: Modifier=Modifier, navController: NavController)
     var passwordConfirmationLandscape =remember {
         mutableStateOf("")
     }
+    val viewModel: TutorProfileViewModel = remember { TutorProfileViewModel()}
+
+
     var error = viewModel.result
+
+
+
 
     val configuration = LocalConfiguration.current
     val isPortrait = configuration.orientation == android.content.res.Configuration.ORIENTATION_PORTRAIT
@@ -95,7 +96,7 @@ fun RegistrationPage(modifier: Modifier=Modifier, navController: NavController)
             }
         }
 
-        Text(text = "Student Registration",modifier= Modifier.padding(0.dp,0.dp,0.dp,paddingBottom), fontSize = 30.sp, fontWeight = FontWeight.Bold, color = Color.Gray)
+        Text(text = "Edit Tutor Profile",modifier= Modifier.padding(0.dp,0.dp,0.dp,paddingBottom), fontSize = 30.sp, fontWeight = FontWeight.Bold, color = Color.Gray)
         if(isPortrait)
         {
             TextField(value = name.value, onValueChange = { text ->
@@ -113,8 +114,8 @@ fun RegistrationPage(modifier: Modifier=Modifier, navController: NavController)
             TextField(value = password.value, onValueChange = { text ->
                 password.value=text
             },
-                label = {Text("Enter Password")},
                 visualTransformation =  PasswordVisualTransformation(),
+                label = {Text("Enter Password")},
                 modifier= Modifier.padding(0.dp,0.dp,0.dp,paddingBottom).background(color = Color.White)
             )
             TextField(value = passwordConfirmation.value, onValueChange = { text ->
@@ -159,32 +160,49 @@ fun RegistrationPage(modifier: Modifier=Modifier, navController: NavController)
             }
         }
         Row {
+            Button(
+                onClick = {
+                    navController.navigate("TutorDashboard")
+                },
+                modifier = Modifier.padding(
+                    5.dp,
+                    paddingBottom,
+                    5.dp,
+                    0.dp
+                )
+            ) { Text(text = "Back") }
 
-            Button(onClick = {
-                if(isPortrait)
-                {
-                    viewModel.register(RegistrationAndProfileData(name.value.toString(),email.value.toString(), password.value.toString(),passwordConfirmation.value.toString(),""),navController)
+            Button(
+                onClick = {
+                    if (isPortrait) {
+                        viewModel.updateProfile(
+                            RegistrationAndProfileData(
+                                name.value.toString(),
+                                email.value.toString(),
+                                password.value.toString(),
+                                passwordConfirmation.value.toString(),
+                                ""
+                            ), navController
+                        )
 
-                }
-                else
-                {
-                    viewModel.register(RegistrationAndProfileData(nameLandscape.value.toString(),emailLandscape.value.toString(), passwordLandscape.value.toString(),passwordConfirmationLandscape.value.toString(),""),navController)
-                }
-            },
+                    } else {
+                        viewModel.updateProfile(
+                            RegistrationAndProfileData(
+                                nameLandscape.value.toString(),
+                                emailLandscape.value.toString(),
+                                passwordLandscape.value.toString(),
+                                passwordConfirmationLandscape.value.toString(),
+                                ""
+                            ), navController
+                        )
+                    }
+                },
                 modifier = Modifier.padding(0.dp, paddingBottom, 5.dp, 0.dp),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color.Red, // Background color of the button
                     contentColor = Color.White  // Color of the text inside the button
-                )) { Text(text = "Register") }
-            Button(onClick = {
-                navController.navigate("Login")
-            },
-                modifier = Modifier.padding(
-                    5.dp,
-                    paddingBottom,
-                    0.dp,
-                    0.dp
-                )) { Text(text = "Login now") }
+                )
+            ) { Text(text = "Edit Profile") }
         }
     }
 }

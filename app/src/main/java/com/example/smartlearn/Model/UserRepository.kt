@@ -17,13 +17,27 @@ class UserRepository {
                 result =true
                 // Make the network call
             } catch (e: Exception) {
+                Log.d("",e.message.toString())
                 // Handle network errors
-                Log.d("error",e.toString())
+                if(e.message.toString()=="HTTP 401 Unauthorized")
+                {
+                    ErrorSession.error="Invalid credentials"
+                }
+                else if(e.message.toString()=="HTTP 403 Forbidden")
+                {
+                    ErrorSession.error="User not approved"
+                }
+                else
+                {
+                   ErrorSession.error="Something went wrong"
+                }
                 result=false
             }
             result
         }
     }
-
+   suspend fun logout() {
+       retrofitService.logout()
+   }
 
 }

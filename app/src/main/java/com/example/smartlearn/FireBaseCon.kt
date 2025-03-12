@@ -1,4 +1,5 @@
 package com.example.smartlearn
+import android.util.Log
 import com.example.smartlearn.Model.Fcm
 import com.google.firebase.messaging.FirebaseMessaging
 
@@ -9,6 +10,7 @@ import com.google.firebase.messaging.FirebaseMessaging
             val token = task.result
             // Send this token to your Laravel API
             sendTokenToServer(token)
+            Log.d("FirebaseToken", "Token: $token")
         } else {
             // Handle the error
             task.exception?.let {
