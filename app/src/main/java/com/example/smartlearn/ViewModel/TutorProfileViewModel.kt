@@ -3,20 +3,20 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
-import com.example.smartlearn.Model.AdminRepository
 import com.example.smartlearn.Model.RegistrationAndProfileData
+import com.example.smartlearn.Model.TutorRepository
 
 import kotlinx.coroutines.launch
 
-class TutorRegistrationViewModel: ViewModel() {
-    val adminRepository: AdminRepository = AdminRepository()
+class TutorProfileViewModel: ViewModel() {
+    val tutorRepository: TutorRepository = TutorRepository()
     var result = mutableStateOf(false)
 
-    fun register(registerData: RegistrationAndProfileData, navController: NavController) {
+    fun updateProfile(profileData: RegistrationAndProfileData, navController: NavController) {
         viewModelScope.launch() {
-            result.value = !adminRepository.register(registerData)
+            result.value = !tutorRepository.updateProfile(profileData)
             if (result.value == false) {
-                navController.navigate("TutorList")
+                navController.navigate("tutorDashboard")
             } else {
                 result.value = true
             }

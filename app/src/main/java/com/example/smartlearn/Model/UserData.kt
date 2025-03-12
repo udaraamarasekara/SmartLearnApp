@@ -17,9 +17,15 @@ data class LoginData(
     var password: String,
     var fcm:String
 )
+object ErrorSession {
+    var error: String? = null
+}
 
+object WelcomePageMsg{
+    var msg: String? = null
+}
 
-data class RegistrationData(
+data class RegistrationAndProfileData(
     var name: String,
     var email: String,
     var password: String,
@@ -29,4 +35,19 @@ data class RegistrationData(
 
 object Fcm {
     var fcm: String? = null
+}
+
+data class Links(
+    var first: String,
+    var last: String? = null,
+    var prev: String? = null,
+    var next: String? = null
+)
+{
+    fun transform() {
+        first = first.substringAfter("page=")
+        last = last?.substringAfter("page=")
+        prev = prev?.substringAfter("page=")
+        next = next?.substringAfter("page=")
+    }
 }

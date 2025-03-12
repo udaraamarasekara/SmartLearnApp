@@ -13,6 +13,7 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.runtime.mutableStateOf
@@ -20,12 +21,13 @@ import com.example.smartlearn.ui.theme.lightBlue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.smartlearn.Model.RegistrationData
-import com.example.smartlearn.ViewModel.StudentListViewModel
+import com.example.smartlearn.Model.RegistrationAndProfileData
 import com.example.smartlearn.ViewModel.TutorRegistrationViewModel
+import kotlinx.coroutines.delay
 
 @Composable
 fun TutorRegistrationPage(modifier: Modifier=Modifier, navController: NavController)
@@ -89,6 +91,10 @@ fun TutorRegistrationPage(modifier: Modifier=Modifier, navController: NavControl
         if(error.value==true)
         {
             Text(text = "Something went wrong",modifier = Modifier.padding(0.dp,0.dp,0.dp,20.dp).background(color = Color.Red ,shape = RoundedCornerShape(8.dp)).padding(30.dp,10.dp,20.dp,10.dp), color = Color.White)
+            LaunchedEffect(Unit) {
+                delay(1000L) // Non-blocking delay
+                error.value = false // Reset error state after delay
+            }
         }
 
         Text(text = "Tutor Registration",modifier= Modifier.padding(0.dp,0.dp,0.dp,paddingBottom), fontSize = 30.sp, fontWeight = FontWeight.Bold, color = Color.Gray)
@@ -109,12 +115,14 @@ fun TutorRegistrationPage(modifier: Modifier=Modifier, navController: NavControl
             TextField(value = password.value, onValueChange = { text ->
                 password.value=text
             },
+                visualTransformation =  PasswordVisualTransformation(),
                 label = {Text("Enter Password")},
                 modifier= Modifier.padding(0.dp,0.dp,0.dp,paddingBottom).background(color = Color.White)
             )
             TextField(value = passwordConfirmation.value, onValueChange = { text ->
                 passwordConfirmation.value=text
             },
+                visualTransformation =  PasswordVisualTransformation(),
                 label = {Text("Confirm Password")},
                 modifier= Modifier.padding(0.dp,0.dp,0.dp,paddingBottom).background(color = Color.White)
             )
@@ -151,32 +159,35 @@ fun TutorRegistrationPage(modifier: Modifier=Modifier, navController: NavControl
             }
         }
         Row {
-
+            Button(onClick = {
+                navController.navigate("AdminDashboard")
+            },
+                modifier = Modifier.padding(
+                    5.dp,
+                    paddingBottom,
+                    5.dp,
+                    0.dp
+                )) { Text(text = "Back") }
             Button(onClick = {
                 if(isPortrait)
                 {
-                    viewModel.register(RegistrationData(name.value.toString(),email.value.toString(), password.value.toString(),passwordConfirmation.value.toString(),""),navController)
+                    viewModel.register(RegistrationAndProfileData(name.value.toString(),email.value.toString(), password.value.toString(),passwordConfirmation.value.toString(),""),navController)
 
                 }
                 else
                 {
-                    viewModel.register(RegistrationData(nameLandscape.value.toString(),emailLandscape.value.toString(), passwordLandscape.value.toString(),passwordConfirmationLandscape.value.toString(),""),navController)
+                    viewModel.register(RegistrationAndProfileData(nameLandscape.value.toString(),emailLandscape.value.toString(), passwordLandscape.value.toString(),passwordConfirmationLandscape.value.toString(),""),navController)
                 }
             },
+
+
+
                 modifier = Modifier.padding(0.dp, paddingBottom, 5.dp, 0.dp),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color.Red, // Background color of the button
                     contentColor = Color.White  // Color of the text inside the button
                 )) { Text(text = "Register") }
-            Button(onClick = {
-                navController.navigate("login")
-            },
-                modifier = Modifier.padding(
-                    5.dp,
-                    paddingBottom,
-                    0.dp,
-                    0.dp
-                )) { Text(text = "Login now") }
+
         }
     }
 }

@@ -2,19 +2,14 @@ package com.example.smartlearn.ViewModel
 
 import android.content.Context
 import android.net.Uri
-import android.os.Environment
-import android.provider.DocumentsContract
-import android.provider.MediaStore
-import android.util.Log
+
 import androidx.compose.runtime.mutableStateOf
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.smartlearn.Model.TutorRepository
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
@@ -53,7 +48,7 @@ class UploadPaperViewModel() : ViewModel() {
 
                 // Call the repository to upload the paper
                 val response = tutorRepository.uploadPaper(body, name.toRequestBody())
-                if (response == 1) {
+                if (response) {
                     fileUploadStatus.value = 1 // Success
                 } else {
                     fileUploadStatus.value = -1 // Indicate error

@@ -40,6 +40,11 @@ class StudentListViewModel() : ViewModel() {
         }
         return response
     }
-
-
+    fun approveStudent(id: Int): Boolean {
+        var response = false
+        viewModelScope.launch() {
+            response = adminRepository.approveMember(id)
+        }
+      return response
+    }
 }

@@ -96,6 +96,8 @@ fun UploadPaperPage(modifier: Modifier = Modifier, navController: NavController)
             fontWeight = FontWeight.Bold,
             color = Color.Gray
         )
+
+
         Button(onClick = { filePickerLauncher.launch("*/*") }) {
             Text("Select File")
         }
@@ -125,5 +127,14 @@ fun UploadPaperPage(modifier: Modifier = Modifier, navController: NavController)
                 Text("Status: ${it.value}")
             }
         }
+        Button(onClick = {
+            navController.navigate("TutorDashboard")
+        },
+            modifier = Modifier.padding(
+                5.dp,
+                10.dp,
+                0.dp,
+                0.dp
+            )) { Text(text = "Back") }
     }
 }

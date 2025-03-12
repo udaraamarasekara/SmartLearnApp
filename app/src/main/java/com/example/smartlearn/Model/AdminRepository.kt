@@ -36,7 +36,7 @@ class AdminRepository() {
         }
     }
 
-    suspend fun register(registrationData: RegistrationData): Boolean {
+    suspend fun register(registrationData: RegistrationAndProfileData): Boolean {
         var result: Any = false
         return withContext(Dispatchers.IO) {
             try {
@@ -64,4 +64,18 @@ class AdminRepository() {
             result
         }
     }
-}
+
+    suspend fun approveMember(id:Int): Boolean {
+        var result: Boolean = false
+        return withContext(Dispatchers.IO){
+            try {
+                result =retrofitService.approveMember(id.toString())
+        }catch (e: Exception) {
+            // Handle network errors
+            error = "Network error"
+        }
+        result
+
+            }
+        }
+    }

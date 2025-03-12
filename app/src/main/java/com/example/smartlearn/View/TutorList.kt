@@ -16,6 +16,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.foundation.lazy.items // or auto-fix imports
+import androidx.compose.material3.Button
 
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
@@ -109,6 +110,15 @@ fun TutorList(
                 TutorCard(tutor, onDelete ={id->deleteTutor(id)})
             }
         }
+        Button(onClick = {
+            navController.navigate("AdminDashboard")
+        },
+            modifier = Modifier.padding(
+                5.dp,
+                10.dp,
+                0.dp,
+                0.dp
+            )) { Text(text = "Back") }
 
     }
 }
